@@ -21,9 +21,10 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.movieapp.data.entities.MoviePopular
+import com.example.movieapp.data.entities.Movie
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -41,15 +42,13 @@ class PopularMoviesFragment : Fragment() {
             setContent {
                 val popularMovies = viewModel.popularMoviesLiveData.observeAsState().value
                 viewModel.getPopularMovies()
-                popularMovies?.results?.forEach {
-                }
-                popularMovies?.results?.let { MovieList(it) }
+                MovieList(popularMovies?.results ?: emptyList())
             }
         }
     }
 
     @Composable
-    fun MovieList(movies: List<MoviePopular.Result>) {
+    fun MovieList(movies: List<Movie>) {
         Box(modifier = Modifier.fillMaxSize()) {
             LazyVerticalGrid(columns = GridCells.Fixed(3)) {
                 items(movies.take(movies.size)) { item ->
@@ -61,13 +60,18 @@ class PopularMoviesFragment : Fragment() {
 
     @OptIn(ExperimentalGlideComposeApi::class)
     @Composable
-    fun MovieItem(movie: MoviePopular.Result) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 4.dp)) {
+    fun MovieItem(movie: Movie) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+        ) {
             Card(elevation = 4.dp, modifier = Modifier
                 .padding(top = 8.dp)
-                .clickable { }
+                .clickable {
+                    val action = PopularMoviesFragmentDirections.showMovieDetails(movie)
+                    findNavController().navigate(action)
+                }
             ) {
                 GlideImage(
                     model = BASE_URL + movie.poster_path,
@@ -81,9 +85,9 @@ class PopularMoviesFragment : Fragment() {
             }
             Spacer(modifier = Modifier.height(8.dp))
             val padding = Modifier.padding(horizontal = 8.dp)
-            Text(text = movie.title, maxLines = 2, modifier = padding)
+            Text(text = movie.title ?: "", maxLines = 2, modifier = padding)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = movie.release_date, modifier = padding)
+            Text(text = movie.release_date ?: "", modifier = padding)
             Spacer(modifier = Modifier.height(8.dp))
         }
     }

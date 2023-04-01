@@ -8,5 +8,20 @@
     <fragment
         android:id="@+id/popularMoviesFragment"
         android:name="com.example.movieapp.presentation.PopularMoviesFragment"
-        android:label="fragment_popular_movies" />
+        android:label="fragment_popular_movies">
+        <action
+            android:id="@+id/showMovieDetails"
+            app:destination="@id/movieDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetails"
+        android:name="com.example.movieapp.presentation.MovieDetails"
+        android:label="MovieDetails">
+        <argument
+            android:name="movie"
+            app:argType="com.example.movieapp.data.entities.Movie" />
+    </fragment>
+
+
 </navigation>
