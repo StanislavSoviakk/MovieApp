@@ -59,7 +59,9 @@ class PopularMovieViewModel @Inject constructor(private val getPopularMoviesUseC
                                 loadMovies()
                             }
                         }
-                        errorDialog.value = !errorDialogIsShown
+                        if (!errorDialogIsShown){
+                            errorDialog.value = true
+                        }
                         errorDialogIsShown = true
                     }
                     is NetworkResult.Loading -> {}
