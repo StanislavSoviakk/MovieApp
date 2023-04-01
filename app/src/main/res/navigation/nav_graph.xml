@@ -23,5 +23,21 @@
             app:argType="com.example.movieapp.data.entities.Movie" />
     </fragment>
 
+    <action
+        android:id="@+id/showZoomedPosterDialog"
+        app:destination="@+id/ZoomedPosterDialogFragment">
+        <argument
+            android:name="poster"
+            app:argType="string" />
+    </action>
+
+    <dialog
+        android:id="@id/ZoomedPosterDialogFragment"
+        android:name="com.example.movieapp.presentation.ZoomedPosterDialogFragment"
+        android:label="ZoomedPosterDialog">
+        <argument
+            android:name="poster"
+            app:argType="string" />
+    </dialog>
 
 </navigation>
