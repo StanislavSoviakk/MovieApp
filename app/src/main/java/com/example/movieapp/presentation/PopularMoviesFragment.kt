@@ -25,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.movieapp.data.entities.Movie
+import com.example.movieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -87,7 +88,7 @@ class PopularMoviesFragment : Fragment() {
                 }
             ) {
                 GlideImage(
-                    model = BASE_URL + movie.poster_path,
+                    model = Constants.BASE_POSTER_URL + movie.poster_path,
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(3 / 4f)
@@ -150,9 +151,5 @@ class PopularMoviesFragment : Fragment() {
                 CircularProgressIndicator()
             }
         }
-    }
-
-    companion object {
-        const val BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 }

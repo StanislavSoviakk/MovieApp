@@ -25,6 +25,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.movieapp.R
 import com.example.movieapp.data.entities.Movie
+import com.example.movieapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -121,7 +122,7 @@ class MovieDetails : Fragment() {
     fun Poster(movie: Movie) {
         Card {
             GlideImage(
-                model = BASE_URL + movie.poster_path,
+                model = Constants.BASE_POSTER_URL + movie.poster_path,
                 contentDescription = null,
                 modifier = Modifier
                     .width(180.dp)
@@ -129,9 +130,5 @@ class MovieDetails : Fragment() {
                 contentScale = ContentScale.FillWidth
             )
         }
-    }
-
-    companion object {
-        const val BASE_URL = "https://image.tmdb.org/t/p/w500"
     }
 }
