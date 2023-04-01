@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -47,7 +48,6 @@ class MovieDetails : Fragment() {
 
     @Composable
     fun MovieDetail(movie: Movie) {
-        val scrollState = rememberScrollState()
         Scaffold(
             topBar = {
                 TopAppBar(title = {}, modifier = Modifier.requiredHeight(70.dp), navigationIcon = {
@@ -67,10 +67,7 @@ class MovieDetails : Fragment() {
                 Column(
                     modifier = Modifier
                         .padding(horizontal = 15.dp)
-                        .scrollable(
-                            state = scrollState,
-                            orientation = Orientation.Vertical
-                        )
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Row {
                         Poster(movie)
