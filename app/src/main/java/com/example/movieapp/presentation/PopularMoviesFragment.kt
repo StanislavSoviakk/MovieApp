@@ -119,11 +119,19 @@ class PopularMoviesFragment : Fragment() {
                     )
                 },
                 buttons = {
-                    Button(
-                        onClick = { viewModel.errorDialog.value = false },
-                        modifier = Modifier.size(64.dp)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Text(text = "OK")
+                        Button(
+                            onClick = { viewModel.errorDialog.value = false },
+                            modifier = Modifier
+                                .height(64.dp)
+                                .width(128.dp)
+                                .padding(12.dp)
+                        ) {
+                            Text(text = "OK")
+                        }
                     }
                 }
             )
