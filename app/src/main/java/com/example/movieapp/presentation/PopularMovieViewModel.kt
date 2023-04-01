@@ -46,6 +46,7 @@ class PopularMovieViewModel @Inject constructor(private val getPopularMoviesUseC
                             _popularMoviesLiveData.postValue(currentMovieList)
                         }
                         loading.value = false
+                        errorDialog.value = false
                         Log.d("Get movies", networkResult.data?.results.toString())
                     }
                     is NetworkResult.Error -> {
