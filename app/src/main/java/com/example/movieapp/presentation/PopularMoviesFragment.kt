@@ -8,7 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -45,7 +45,7 @@ class PopularMoviesFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 val popularMovies = viewModel.popularMoviesLiveData.observeAsState().value
-                MovieList(popularMovies?.results ?: emptyList())
+                MovieList(popularMovies ?: emptyList())
             }
         }
     }
@@ -54,10 +54,15 @@ class PopularMoviesFragment : Fragment() {
     fun MovieList(movies: List<Movie>) {
         val loading = viewModel.loading.value
         val errorDialog = viewModel.errorDialog.value
+        val page = viewModel.page.value
 
         Box(modifier = Modifier.fillMaxSize()) {
             LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-                items(movies.take(movies.size)) { item ->
+                itemsIndexed(movies) { index, item ->
+                    viewModel.moviesScrollPosition = index
+                    if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
+                        viewModel.loadNextMoviesPage()
+                    }
                     MovieItem(movie = item)
                 }
             }

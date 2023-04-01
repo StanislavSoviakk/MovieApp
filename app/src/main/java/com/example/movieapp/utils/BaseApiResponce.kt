@@ -1,4 +1,4 @@
-package com.example.movieapp.data.remote
+package com.example.movieapp.utils
 
 import retrofit2.Response
 
