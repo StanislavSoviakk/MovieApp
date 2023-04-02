@@ -55,10 +55,8 @@ class PopularMovieViewModel @Inject constructor(private val getPopularMoviesUseC
                             "Failed to load popular movies: ${networkResult.message}"
                         )
                         launch(Dispatchers.Default) {
-                            while (_popularMoviesLiveData.value == null) {
-                                delay(5000)
-                                loadMovies()
-                            }
+                            delay(5000)
+                            loadMovies()
                         }
                         if (!errorDialogIsShown) {
                             errorDialog.value = true
